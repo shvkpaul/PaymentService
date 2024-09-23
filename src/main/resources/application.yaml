@@ -1,0 +1,22 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: Payment-Service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/paymentdb
+    username: payment-team
+    password: payment-team-pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  config:
+    import: configserver:http://localhost:9296
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
