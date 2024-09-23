@@ -2,6 +2,7 @@ package org.shvk.paymentservice.service;
 
 import lombok.extern.log4j.Log4j2;
 import org.shvk.paymentservice.entity.TransactionDetails;
+import org.shvk.paymentservice.exception.PaymentDetailsNotFoundException;
 import org.shvk.paymentservice.model.PaymentMode;
 import org.shvk.paymentservice.model.PaymentRequest;
 import org.shvk.paymentservice.model.PaymentResponse;
@@ -45,7 +46,9 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentResponse getPaymentDetailsByOrderId(long orderId) {
         log.info("Getting payment details for orderId: {}", orderId);
 
-        TransactionDetails transactionDetails = transactionDetailsRepository.findByOrderId(orderId);
+        TransactionDetails transactionDetails
+                = transactionDetailsRepository.findByOrderId(orderId)
+                .orElseThrow(() -> new PaymentDetailsNotFoundException("No transaction details found for orderId: " + orderId));
 
         PaymentResponse paymentResponse
                 = new PaymentResponse(
