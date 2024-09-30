@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: Payment-Service
+    name: PAYMENT-SERVICE
   jpa:
     hibernate:
       ddl-auto: update
